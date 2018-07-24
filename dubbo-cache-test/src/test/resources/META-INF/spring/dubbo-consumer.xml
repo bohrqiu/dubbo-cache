@@ -24,6 +24,7 @@
     <!-- application config -->
     <dubbo:application name="dubbo-annotation-consumer">
         <dubbo:parameter key="cacheValueValidator" value="test"/>
+        <dubbo:parameter key="cacheKeyValidator" value="test"/>
     </dubbo:application>
 
     <!-- registry center config -->
