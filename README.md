@@ -17,7 +17,7 @@
 	
 ```xml
 <dependency>
-	<groupId>me.bohr.dubbo</groupId>
+	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-common</artifactId>
 	<version>1.0</version>
 </dependency>
@@ -26,7 +26,7 @@
 
 ```xml
 <dependency>
-	<groupId>me.bohr.dubbo</groupId>
+	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-core</artifactId>
 	<version>1.0</version>
 </dependency>
@@ -37,7 +37,7 @@
 ```java
 public interface CacheableService {
 	@DubboCache(cacheName = "test",key = "#order.playload")
-		SingleValueResult<String> echo(SingleValueOrder<String> order);
+	SingleValueResult<String> echo(SingleValueOrder<String> order);
 }
 ```
 
@@ -73,7 +73,7 @@ key生成策略和`Cacheable`一致，上面的例子中cache key由三部分组
 #### 实现`CacheKeyValidator`
 		
 ```java		
-package me.bohr.dubbo.cache.validator;
+package com.github.bohrqiu.dubbo.cache.validator;
 public class TestCacheKeyValidator implements CacheKeyValidator {
 		    @Override
 	public boolean isValid(URL url, Invocation invocation, Object key) {
@@ -85,9 +85,9 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 
 #### 配置扩展文件
 
-在classpath下创建`META-INF/dubbo/me.bohr.dubbo.cache.CacheKeyValidator`文件,内容为：
+在classpath下创建`META-INF/dubbo/com.github.bohrqiu.dubbo.cache.CacheKeyValidator`文件,内容为：
 
-	test=me.bohr.dubbo.cache.validator.TestCacheValueValidator
+	test=com.github.bohrqiu.dubbo.cache.validator.TestCacheValueValidator
 	
 #### 设置服务url使自定义扩展生效
 
@@ -107,7 +107,6 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 
 #### 缓存不生效的场景包括哪些？
 
-1. 服务提供者group不为空时，此组件不生效。
+##### 服务提供者group不为空时，此组件不生效。
 
-    为了使用方便，此组件提供服务接口上的注解，此注解不能感知group，而且到多个group存在时，缓存控制比较麻烦。比如有多个group，缓存key完全由dubbo服务限定名生成，
-    那么key=service:group:version:paramkey,为了清除key会很麻烦。
+为了使用方便，此组件提供服务接口上的注解，此注解不能感知group，而且到多个group存在时，缓存控制比较麻烦。比如有多个group，缓存key完全由dubbo服务限定名生成，那么key=service:group:version:paramkey,为了清除key会很麻烦。

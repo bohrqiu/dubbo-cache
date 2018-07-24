@@ -1,1 +1,1 @@
-consumerCacheFilter=me.bohr.dubbo.cache.filter.ConsumerCacheFilter
+consumerCacheFilter=com.github.bohrqiu.dubbo.cache.filter.ConsumerCacheFilter
