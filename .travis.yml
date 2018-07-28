@@ -7,3 +7,6 @@ services:
   - redis-server
 
 install: mvn install -Dmaven.javadoc.skip=true -Dgpg.skip=true
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

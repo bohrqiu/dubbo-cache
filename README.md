@@ -1,5 +1,8 @@
 # @DubboCache
 
+[![Build Status](https://travis-ci.org/bohrqiu/dubbo-cache.svg?branch=master)](https://travis-ci.org/bohrqiu/dubbo-cache)
+[![codecov](https://codecov.io/gh/bohrqiu/dubbo-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/bohrqiu/dubbo-cache)
+
 提供dubbo消费者直接使用缓存的能力，当缓存不存在时，再访问远程dubbo服务。
 
 相对于dubbo默认的缓存机制，此项目具有如下优点：
