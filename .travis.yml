@@ -1,12 +1,14 @@
 language: java
 
+sudo: false
+
 jdk:
   - oraclejdk8
 
 services:
   - redis-server
 
-install: mvn install -Dmaven.javadoc.skip=true -Dgpg.skip=true
+script: mvn clean package -Dgpg.skip=true -Dcheckstyle.skip=false -Drat.skip=false
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
