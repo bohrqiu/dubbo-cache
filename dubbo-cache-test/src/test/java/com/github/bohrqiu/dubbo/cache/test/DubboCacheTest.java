@@ -1,11 +1,10 @@
 package com.github.bohrqiu.dubbo.cache.test;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.github.bohrqiu.dubbo.cache.test.dubbo.DemoService;
 import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Request;
 import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Response;
+import com.github.bohrqiu.dubbo.cache.test.dubbo.service.DemoService;
 import org.assertj.core.api.Assertions;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,6 +29,8 @@ public class DubboCacheTest {
 
     @Reference(version = "2.5.8", url = "dubbo://127.0.0.1:12345")
     private DemoService demoService;
+    @Reference(version = "2.5.8", url = "dubbo://127.0.0.1:12345", group = "test")
+    private DemoService groupDemoService;
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -101,9 +102,28 @@ public class DubboCacheTest {
         String logsContent = capture.getLogsContent();
         Assertions.assertThat(logsContent).contains("in sayHello2");
     }
+    @Test
+    public void testGroupServiceParamIndex() {
+        Request request = new Request();
+        request.setName("x");
+        request.setAge(1);
+        Response response = groupDemoService.sayHello1(request);
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        String logsContent = capture.getLogsContent();
+        Assertions.assertThat(logsContent).contains("in TestCacheKeyValidator");
+        Assertions.assertThat(logsContent).contains("group:test,in sayHello1");
+        Assertions.assertThat(logsContent).contains("in TestCacheValueValidator");
+        capture.clear();
 
-    @AfterClass
-    public static void afterClass() throws Exception {
-//        System.exit(0);
+        response = groupDemoService.sayHello1(request);
+        logsContent = capture.getLogsContent();
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        Assertions.assertThat(logsContent).contains("in TestCacheKeyValidator");
+        Assertions.assertThat(logsContent).contains("@DubboCache hit");
+        Assertions.assertThat(logsContent).contains("cachePrefix=dubbo-cache-test:");
     }
+
+
 }

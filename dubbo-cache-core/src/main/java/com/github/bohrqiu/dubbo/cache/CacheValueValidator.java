@@ -33,10 +33,11 @@ public interface CacheValueValidator {
      *
      * @param url        URL
      * @param invocation Invocation
+     * @param cacheMeta  cacheMeta
      * @param value      provider result
      * @return cache if ture
      */
     @Adaptive("cacheValueValidator")
-    boolean isValid(URL url, Invocation invocation, Object value);
+    boolean isValid(URL url, Invocation invocation, CacheMeta cacheMeta, Object value);
 }
 

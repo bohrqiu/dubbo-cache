@@ -18,6 +18,7 @@ package com.github.bohrqiu.dubbo.cache.validator;
 
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.rpc.Invocation;
+import com.github.bohrqiu.dubbo.cache.CacheMeta;
 import com.github.bohrqiu.dubbo.cache.CacheValueValidator;
 
 /**
@@ -26,7 +27,7 @@ import com.github.bohrqiu.dubbo.cache.CacheValueValidator;
  */
 public class DefaultCacheValueValidator implements CacheValueValidator {
     @Override
-    public boolean isValid(URL url, Invocation invocation, Object value) {
+    public boolean isValid(URL url, Invocation invocation, CacheMeta cacheMeta, Object value) {
         return value != null;
     }
 }

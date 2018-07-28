@@ -19,7 +19,6 @@ package com.github.bohrqiu.dubbo.cache.impl;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.github.bohrqiu.dubbo.cache.CacheMeta;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.cache.DefaultRedisCachePrefix;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -44,9 +43,9 @@ public class RedisCache extends AbstractCache {
         this.valueRedisSerializer = redisTemplate.getValueSerializer();
         this.expirationSecs = cacheMeta.getDubboCache().expire();
         this.redisConnectionFactory = redisTemplate.getConnectionFactory();
-        String cacheName = cacheMeta.getDubboCache().cacheName();
-        if (!StringUtils.isBlank(cacheName)) {
-            this.prefix = new DefaultRedisCachePrefix().prefix(cacheName);
+        String cachePrefix = cacheMeta.getCachePrefix();
+        if (!StringUtils.isBlank(cachePrefix)) {
+            this.prefix = redisTemplate.getKeySerializer().serialize(cachePrefix);
         } else {
             this.prefix = null;
         }

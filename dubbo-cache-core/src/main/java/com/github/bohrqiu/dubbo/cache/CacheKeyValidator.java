@@ -29,11 +29,12 @@ public interface CacheKeyValidator {
     /**
      * Check if the key can be cached
      *
-     * @param url        URL
-     * @param invocation Invocation
-     * @param key        el express evaluated key
+     * @param url            URL
+     * @param invocation     Invocation
+     * @param cacheMeta      cacheMeta
+     * @param elEvaluatedKey el express evaluated key
      * @return cache if ture
      */
     @Adaptive("cacheKeyValidator")
-    boolean isValid(URL url, Invocation invocation, Object key);
+    boolean isValid(URL url, Invocation invocation, CacheMeta cacheMeta, Object elEvaluatedKey);
 }

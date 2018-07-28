@@ -16,29 +16,35 @@
 ### 在服务接口模块中依赖`dubbo-cache-common`
 	
 ```xml
+
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-common</artifactId>
 	<version>1.0</version>
 </dependency>
+
 ```       
 ### 在服务消费者模块中依赖`dubbo-cache-core`
 
 ```xml
+
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-core</artifactId>
 	<version>1.0</version>
 </dependency>
+
 ```  
 
 ### 在服务接口上添加`@DubboCache`注解
 
 ```java
+
 public interface CacheableService {
 	@DubboCache(cacheName = "test",key = "#order.playload")
 	SingleValueResult<String> echo(SingleValueOrder<String> order);
 }
+
 ```
 
 如上所示:`cacheName=test`,`key`为第一个参数的playload字段，缓存有效期默认5分钟。
@@ -51,9 +57,16 @@ public interface CacheableService {
 
 ## key生成
 
-key生成策略和`Cacheable`一致，上面的例子中cache key由三部分组成:cacheName,分隔符(:),and spring el表达式结果.
+key生成策略和`Cacheable`一致，上面的例子中cache key由两部分组成:cacheName,spring el表达式结果，用`:`分隔.
 
 如果请求参数order中`playload`属性值为dubbo，最终key为：`test:dubbo`
+
+如果服务有多个版本或者group，需要对多个版本和group分别设置缓存，可以设置参数：
+
+    cachePrefixContainGroup=true
+    cachePrefixContainVersion=true
+    
+如果两个参数都设置，key由四部分组成：cacheName,group,version,spring el表达式结果,用`:`分隔，建议在provider端设置此配置。
 
 ## 控制缓存
 
@@ -72,7 +85,8 @@ key生成策略和`Cacheable`一致，上面的例子中cache key由三部分组
 
 #### 实现`CacheKeyValidator`
 		
-```java		
+```java	
+	
 package com.github.bohrqiu.dubbo.cache.validator;
 public class TestCacheKeyValidator implements CacheKeyValidator {
 		    @Override
@@ -81,6 +95,7 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 		return true;
 	}
 }
+
 ```
 
 #### 配置扩展文件
@@ -91,8 +106,11 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 	
 #### 设置服务url使自定义扩展生效
 
+可以通过在provider配置application时指定.
+
 ```xml
-<dubbo:application name="dubbo-annotation-consumer">
+
+<dubbo:application name="dubbo-cache-test">
 	<dubbo:parameter key="cacheKeyValidator" value="test"/>
 </dubbo:application>
 
@@ -101,12 +119,3 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 ### 扩展`CacheKeyValidator`
 
 扩展方式和上面的类似，更多参考dubbo扩展机制。	默认策略为：value不为null可以缓存。
-
-
-### F.A.Q
-
-#### 缓存不生效的场景包括哪些？
-
-##### 服务提供者group不为空时，此组件不生效。
-
-为了使用方便，此组件提供服务接口上的注解，此注解不能感知group，而且到多个group存在时，缓存控制比较麻烦。比如有多个group，缓存key完全由dubbo服务限定名生成，那么key=service:group:version:paramkey,为了清除key会很麻烦。

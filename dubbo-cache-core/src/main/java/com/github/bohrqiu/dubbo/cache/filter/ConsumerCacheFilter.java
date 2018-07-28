@@ -45,23 +45,23 @@ public class ConsumerCacheFilter implements Filter {
         if (cacheMeta != null) {
             Cache cache = cacheFactory.getCache(invoker, invocation, cacheMeta);
             if (cache != null && !cache.equals(NullCache.INSTANCE)) {
-                Object key = keyGenerator.key(cacheMeta, invocation.getArguments());
-                if (cache.getCacheKeyValidator().isValid(invoker.getUrl(), invocation, key)) {
-                    Object value = cache.get(key);
+                Object elEvaluatedKey = keyGenerator.key(cacheMeta, invocation.getArguments());
+                if (cache.getCacheKeyValidator().isValid(invoker.getUrl(), invocation, cacheMeta, elEvaluatedKey)) {
+                    Object value = cache.get(elEvaluatedKey);
                     if (value != null) {
-                        logger.info(String.format("@DubboCache hit,service=%s,key=%s,result=%s",
-                                cacheMeta.getMethodFullName(), key, value));
+                        logger.info(String.format("@DubboCache hit,service=%s,cachePrefix=%s,elEvaluatedKey=%s",
+                                cacheMeta.getMethodFullName(), cacheMeta.getCachePrefix(), elEvaluatedKey));
                         return new RpcResult(value);
                     }
                     Result result = invoker.invoke(invocation);
                     if (!result.hasException()) {
-                        if (cache.getCacheValueValidator().isValid(invoker.getUrl(), invocation, result.getValue())) {
-                            cache.put(key, result.getValue());
+                        if (cache.getCacheValueValidator().isValid(invoker.getUrl(), invocation, cacheMeta, result.getValue())) {
+                            cache.put(elEvaluatedKey, result.getValue());
                         }
                     }
                     return result;
                 } else {
-                    logger.warn(String.format("key[%s] is not support by %s", key, cache.getClass().getName()));
+                    logger.warn(String.format("key[%s] is not support by %s", elEvaluatedKey, cache.getClass().getName()));
                 }
             }
         }

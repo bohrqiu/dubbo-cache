@@ -24,6 +24,8 @@
     <dubbo:application name="dubbo-cache-test">
         <dubbo:parameter key="cacheValueValidator" value="test"/>
         <dubbo:parameter key="cacheKeyValidator" value="test"/>
+        <dubbo:parameter key="cachePrefixContainGroup" value="true"/>
+        <dubbo:parameter key="cachePrefixContainVersion" value="true"/>
     </dubbo:application>
 
     <!-- registry center config -->

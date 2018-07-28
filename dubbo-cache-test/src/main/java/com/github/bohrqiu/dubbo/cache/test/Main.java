@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * @author qiuboboy@qq.com
@@ -32,6 +33,7 @@ public class Main {
         public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
             RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
             template.setConnectionFactory(redisConnectionFactory);
+            template.setKeySerializer(new StringRedisSerializer());
             return template;
         }
     }
