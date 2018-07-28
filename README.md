@@ -20,7 +20,7 @@
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-common</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 </dependency>
 
 ```       
@@ -31,7 +31,7 @@
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-core</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 </dependency>
 
 ```  
