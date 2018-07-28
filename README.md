@@ -48,7 +48,7 @@ public interface CacheableService {
 
 如上所示:`cacheName=test`,`key`为第一个参数的playload字段，缓存有效期默认5分钟。
 	
-上面的注解和`@org.springframework.cache.annotation.Cacheable(value = "test", key = "#order.playload")`等价。
+上面的注解和`@org.springframework.cache.annotation.Cacheable(value = "test", key = "#order.playload")`生成的key一致。
 	
 对于dubbo服务消费者，只需要更新jar包即可，由服务提供者来觉得接口是否需要缓存，和缓存的控制。
 
@@ -87,8 +87,8 @@ key生成策略和`Cacheable`一致，上面的例子中cache key由两部分组
 ```java	
 package com.github.bohrqiu.dubbo.cache.validator;
 public class TestCacheKeyValidator implements CacheKeyValidator {
-		    @Override
-	public boolean isValid(URL url, Invocation invocation, Object key) {
+    @Override
+	public boolean isValid(URL url, Invocation invocation, CacheMeta cacheMeta, Object elEvaluatedKey) {
 		System.out.println("in TestCacheKeyValidator");
 		return true;
 	}
