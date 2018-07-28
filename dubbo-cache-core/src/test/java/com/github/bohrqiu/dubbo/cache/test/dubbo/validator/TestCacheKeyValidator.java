@@ -17,7 +17,7 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
     @Override
     public boolean isValid(URL url, Invocation invocation, CacheMeta cacheMeta, Object elEvaluatedKey) {
         logger.info("in TestCacheKeyValidator");
-        logger.info("url:{}",url.toString());
+        logger.info("url:{}", url.toString());
         return elEvaluatedKey != null;
     }
 }

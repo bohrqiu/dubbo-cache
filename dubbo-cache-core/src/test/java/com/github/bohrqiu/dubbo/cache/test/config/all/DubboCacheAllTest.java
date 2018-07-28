@@ -1,9 +1,10 @@
-package com.github.bohrqiu.dubbo.cache.test;
+package com.github.bohrqiu.dubbo.cache.test.config.all;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Request;
 import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Response;
 import com.github.bohrqiu.dubbo.cache.test.dubbo.service.DemoService;
+import com.github.bohrqiu.dubbo.cache.test.util.LogOutputRule;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,12 +19,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
+ * 测试所有扩展参数配置的情况
+ *
  * @author qiuboboy@qq.com
  * @date 2018-07-28 15:09
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class DubboCacheTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = AllConfig.class)
+public class DubboCacheAllTest {
     @Rule
     public LogOutputRule capture = new LogOutputRule();
 
@@ -89,6 +92,8 @@ public class DubboCacheTest {
         Assertions.assertThat(response.getName()).isEqualTo(request.getName());
         Assertions.assertThat(logsContent).contains("in TestCacheKeyValidator");
         Assertions.assertThat(logsContent).contains("@DubboCache hit");
+        Assertions.assertThat(logsContent).contains("dubbo-cache-test:2.5.8:");
+        Assertions.assertThat(logsContent).contains("elEvaluatedKey=1");
     }
 
     @Test
@@ -102,6 +107,7 @@ public class DubboCacheTest {
         String logsContent = capture.getLogsContent();
         Assertions.assertThat(logsContent).contains("in sayHello2");
     }
+
     @Test
     public void testGroupServiceParamIndex() {
         Request request = new Request();
@@ -122,7 +128,8 @@ public class DubboCacheTest {
         Assertions.assertThat(response.getName()).isEqualTo(request.getName());
         Assertions.assertThat(logsContent).contains("in TestCacheKeyValidator");
         Assertions.assertThat(logsContent).contains("@DubboCache hit");
-        Assertions.assertThat(logsContent).contains("cachePrefix=dubbo-cache-test:");
+        Assertions.assertThat(logsContent).contains("dubbo-cache-test:test:2.5.8:");
+        Assertions.assertThat(logsContent).contains("elEvaluatedKey=1");
     }
 
 

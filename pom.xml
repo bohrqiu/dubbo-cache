@@ -15,7 +15,6 @@
     <modules>
         <module>dubbo-cache-common</module>
         <module>dubbo-cache-core</module>
-        <module>dubbo-cache-test</module>
     </modules>
 
     <build>
@@ -56,7 +55,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
             <!-- Nexus Staging Plugin, auto deploy close and release -->
