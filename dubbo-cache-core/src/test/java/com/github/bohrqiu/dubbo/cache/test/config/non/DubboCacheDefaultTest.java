@@ -92,6 +92,47 @@ public class DubboCacheDefaultTest {
     }
 
     @Test
+    public void testParamIndex_noCacheName() {
+        Request request = new Request();
+        request.setName("x");
+        request.setAge(1);
+        Response response = demoService.sayHello3(request);
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        String logsContent = capture.getLogsContent();
+        Assertions.assertThat(logsContent).contains("in sayHello3");
+        capture.clear();
+
+        response = demoService.sayHello3(request);
+        logsContent = capture.getLogsContent();
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        Assertions.assertThat(logsContent).contains("@DubboCache hit");
+        Assertions.assertThat(logsContent).contains("cachePrefix=,");
+        Assertions.assertThat(logsContent).contains("elEvaluatedKey=1");
+    }
+    @Test
+    public void testParamIndex_noCacheKey() {
+        Request request = new Request();
+        request.setName("x");
+        request.setAge(1);
+        Response response = demoService.sayHello4(request);
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        String logsContent = capture.getLogsContent();
+        Assertions.assertThat(logsContent).contains("key[null] is not support by");
+        Assertions.assertThat(logsContent).contains("in sayHello4");
+        capture.clear();
+
+        response = demoService.sayHello4(request);
+        logsContent = capture.getLogsContent();
+        Assertions.assertThat(response.getAge()).isEqualTo(request.getAge());
+        Assertions.assertThat(response.getName()).isEqualTo(request.getName());
+        Assertions.assertThat(logsContent).contains("key[null] is not support by");
+        Assertions.assertThat(logsContent).contains("in sayHello4");
+    }
+
+    @Test
     public void testNonCache() {
         Request request = new Request();
         request.setName("x");

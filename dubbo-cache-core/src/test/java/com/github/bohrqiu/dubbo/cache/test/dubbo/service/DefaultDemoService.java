@@ -61,4 +61,20 @@ public class DefaultDemoService implements DemoService {
         response.setName(request.getName());
         return response;
     }
+    @Override
+    public Response sayHello3(Request request) {
+        logger.info("in sayHello3");
+        Response response = new Response();
+        response.setAge(request.getAge());
+        response.setName(request.getName());
+        return response;
+    }
+    @Override
+    public Response sayHello4(Request request) {
+        logger.info("in sayHello4");
+        Response response = new Response();
+        response.setAge(request.getAge());
+        response.setName(request.getName());
+        return response;
+    }
 }

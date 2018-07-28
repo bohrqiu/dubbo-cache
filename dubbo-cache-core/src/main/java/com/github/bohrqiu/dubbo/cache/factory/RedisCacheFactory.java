@@ -49,19 +49,19 @@ public class RedisCacheFactory extends AbstractCacheFactory {
                 contexts.setAccessible(true);
                 Set<ApplicationContext> contextSet = (Set<ApplicationContext>) contexts.get(null);
                 if (contextSet.isEmpty()) {
-                    logger.warn("non spring application,cache dont work");
+                    logger.warn("non spring application,@DubboCache dont work");
                     return;
                 }
                 context = contextSet.iterator().next();
             }
 
             if (context == null) {
-                logger.warn("non spring application,cache dont work");
+                logger.warn("non spring application,@DubboCache dont work");
                 return;
             }
             Map<String, RedisTemplate> beansOfType = context.getBeansOfType(RedisTemplate.class);
             if (beansOfType.isEmpty()) {
-                throw new IllegalStateException("RedisTemplate is not found in spring container");
+                throw new IllegalStateException("RedisTemplate is not found in spring container,@DubboCache not work!");
             } else {
                 redisTemplate = beansOfType.values().iterator().next();
             }

@@ -17,4 +17,9 @@ public interface DemoService {
 
     Response sayHello2(Request request);
 
+    @DubboCache(key = "#p0.age.toString()")
+    Response sayHello3(Request request);
+
+    @DubboCache(key="")
+    Response sayHello4(Request request);
 }
