@@ -68,7 +68,7 @@ key生成策略和`Cacheable`一致，上面的例子中cache key由三部分组
 
 ### 扩展`CacheKeyValidator`
 
-`CacheKeyValidator`可以实现对特定的key、url缓存或者不缓存。
+`CacheKeyValidator`可以实现对特定的key、url缓存或者不缓存。默认策略为：key不为null可以缓存。
 
 #### 实现`CacheKeyValidator`
 		
@@ -100,7 +100,7 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 
 ### 扩展`CacheKeyValidator`
 
-扩展方式和上面的类似，更多参考dubbo扩展机制。	
+扩展方式和上面的类似，更多参考dubbo扩展机制。	默认策略为：value不为null可以缓存。
 
 
 ### F.A.Q
