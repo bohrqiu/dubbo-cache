@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/bohrqiu/dubbo-cache.svg?branch=master)](https://travis-ci.org/bohrqiu/dubbo-cache)
 [![codecov](https://codecov.io/gh/bohrqiu/dubbo-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/bohrqiu/dubbo-cache)
+[![maven](https://img.shields.io/maven-central/v/com.github.bohrqiu.dubbo/dubbo-cache.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdubbo-cache)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![maven](https://img.shields.io/maven-central/v/com.github.bohrqiu.dubbo/dubbo-cache.svg)
 
 提供dubbo消费者直接使用缓存的能力，当缓存不存在时，再访问远程dubbo服务。
 
@@ -21,35 +21,29 @@
 ### 在服务接口模块中依赖`dubbo-cache-common`
 	
 ```xml
-
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-common</artifactId>
 	<version>1.1</version>
 </dependency>
-
 ```       
 ### 在服务消费者模块中依赖`dubbo-cache-core`
 
 ```xml
-
 <dependency>
 	<groupId>com.github.bohrqiu.dubbo</groupId>
 	<artifactId>dubbo-cache-core</artifactId>
 	<version>1.1</version>
 </dependency>
-
 ```  
 
 ### 在服务接口上添加`@DubboCache`注解
 
 ```java
-
 public interface CacheableService {
 	@DubboCache(cacheName = "test",key = "#order.playload")
 	SingleValueResult<String> echo(SingleValueOrder<String> order);
 }
-
 ```
 
 如上所示:`cacheName=test`,`key`为第一个参数的playload字段，缓存有效期默认5分钟。
@@ -91,7 +85,6 @@ key生成策略和`Cacheable`一致，上面的例子中cache key由两部分组
 #### 实现`CacheKeyValidator`
 		
 ```java	
-	
 package com.github.bohrqiu.dubbo.cache.validator;
 public class TestCacheKeyValidator implements CacheKeyValidator {
 		    @Override
@@ -100,7 +93,6 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 		return true;
 	}
 }
-
 ```
 
 #### 配置扩展文件
@@ -111,14 +103,12 @@ public class TestCacheKeyValidator implements CacheKeyValidator {
 	
 #### 设置服务url使自定义扩展生效
 
-可以通过在provider配置application时指定.
+可以通过在provider配置application时指定(更多配置方式，参考dubbo相关文档).
 
 ```xml
-
 <dubbo:application name="dubbo-cache-test">
 	<dubbo:parameter key="cacheKeyValidator" value="test"/>
 </dubbo:application>
-
 ```
 
 ### 扩展`CacheKeyValidator`
