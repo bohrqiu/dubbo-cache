@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/bohrqiu/dubbo-cache.svg?branch=master)](https://travis-ci.org/bohrqiu/dubbo-cache)
 [![codecov](https://codecov.io/gh/bohrqiu/dubbo-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/bohrqiu/dubbo-cache)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![maven](https://img.shields.io/maven-central/v/com.github.bohrqiu.dubbo/dubbo-cache.svg)
 
 提供dubbo消费者直接使用缓存的能力，当缓存不存在时，再访问远程dubbo服务。
 
