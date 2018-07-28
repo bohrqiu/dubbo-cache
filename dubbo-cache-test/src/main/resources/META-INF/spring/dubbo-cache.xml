@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -22,12 +21,15 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <!-- application config -->
-    <dubbo:application name="dubbo-annotation-consumer">
+    <dubbo:application name="dubbo-cache-test">
         <dubbo:parameter key="cacheValueValidator" value="test"/>
         <dubbo:parameter key="cacheKeyValidator" value="test"/>
     </dubbo:application>
 
     <!-- registry center config -->
-    <dubbo:registry address="N/A"/>
+    <dubbo:registry id="my-registry" address="N/A"/>
+
+    <!-- protocol config -->
+    <dubbo:protocol name="dubbo" port="12345"/>
 
 </beans>

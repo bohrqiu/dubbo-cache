@@ -1,7 +1,8 @@
-package com.github.bohrqiu.dubbo.cache;
+package com.github.bohrqiu.dubbo.cache.test.dubbo;
 
-import com.github.bohrqiu.dubbo.cache.dto.Request;
-import com.github.bohrqiu.dubbo.cache.dto.Response;
+import com.github.bohrqiu.dubbo.cache.DubboCache;
+import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Request;
+import com.github.bohrqiu.dubbo.cache.test.dubbo.dto.Response;
 
 /**
  * @author qiuboboy@qq.com
@@ -13,5 +14,7 @@ public interface DemoService {
 
     @DubboCache(cacheName = "dubbo-cache-test", key = "#p0.age")
     Response sayHello1(Request request);
+
+    Response sayHello2(Request request);
 
 }
