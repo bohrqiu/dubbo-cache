@@ -26,7 +26,9 @@
 	<artifactId>dubbo-cache-common</artifactId>
 	<version>1.1</version>
 </dependency>
-```       
+```
+此依赖仅定义了`@DubboCache`注解。
+      
 ### 在服务消费者模块中依赖`dubbo-cache-core`
 
 ```xml
