@@ -9,10 +9,11 @@
 
 相对于dubbo默认的缓存机制，此项目具有如下优点：
 
-1. 缓存key生成灵活，和spring 声明式缓存一致，采用spring el表达式
-2. 可以扩展`CacheKeyValidator`接口，实现键缓存策略
-3. 可以扩展`CacheValueValidator`接口，实现值缓存策略
-4. 由于采用分布式缓存，服务提供端可以灵活控制缓存
+1. 原生dubbo cache机制只能缓存结果到消费者jvm中，并且cache key不能选择。
+2. 缓存key生成灵活，和spring 声明式缓存一致，采用spring el表达式
+3. 可以扩展`CacheKeyValidator`接口，实现键缓存策略
+4. 可以扩展`CacheValueValidator`接口，实现值缓存策略
+5. 由于采用分布式缓存，服务提供端可以灵活控制缓存
 
 目前仅提供redis实现，依赖`spring-data-redis`.
 
