@@ -30,7 +30,7 @@
 ```
 此依赖仅定义了`@DubboCache`注解。
       
-### 在服务消费者模块中依赖`dubbo-cache-core`
+### 在服务实现模块中依赖`dubbo-cache-core`
 
 ```xml
 <dependency>
